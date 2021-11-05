@@ -181,6 +181,8 @@ BOOL APIENTRY DllMain(HINSTANCE module, DWORD reason, LPVOID /*reserved*/)
 }
 #endif
 
+ALC_API ALCboolean ALC_APIENTRY alcSetDeviceTime(ALCdevice* device, ALfloat time);
+
 namespace {
 
 using namespace std::placeholders;
@@ -273,6 +275,7 @@ const struct {
     DECL(alcGetContextsDevice),
     DECL(alcOpenDevice),
     DECL(alcCloseDevice),
+    DECL(alcSetDeviceTime),
     DECL(alcGetError),
     DECL(alcIsExtensionPresent),
     DECL(alcGetProcAddress),
@@ -3394,6 +3397,16 @@ START_API_FUNC
 }
 END_API_FUNC
 
+ALC_API ALCboolean ALC_APIENTRY alcSetDeviceTime(ALCdevice* device, ALfloat time)
+START_API_FUNC
+{
+    DeviceRef dev{VerifyDevice(device)};
+    if(!dev)
+        return ALC_FALSE;
+    dev->time = time;
+    return ALC_TRUE;
+}
+END_API_FUNC
 
 /************************************************
  * ALC capture functions

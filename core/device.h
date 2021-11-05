@@ -176,6 +176,8 @@ struct DeviceBase {
     std::chrono::nanoseconds ClockBase{0};
     std::chrono::nanoseconds FixedLatency{0};
 
+    float time = 0.0f;
+
     /* Temp storage used for mixer processing. */
     static constexpr size_t MixerLineSize{BufferLineSize + MaxResamplerPadding +
         UhjDecoder::sFilterDelay};
